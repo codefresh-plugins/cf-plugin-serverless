@@ -1,40 +1,36 @@
-version: '1.0'
-
+version: "1.0"
 steps:
-
   get_version:
     image: alpine:3.7
     commands:
-      - cf_export VERSION=$(cat VERSION)
-      # SHORT_VERSION is version without PATCH numver
-      - cf_export SHORT_VERSION=$(v=$(cat VERSION); echo ${v%.*})
-
+    - cf_export VERSION=$(cat VERSION)
+    - cf_export SHORT_VERSION=$(v=$(cat VERSION); echo ${v%.*})
   build:
     type: build
     title: create Docker image
     dockerfile: ./Dockerfile
-    image_name: codefresh/serverless
+    image_name: codefreshplugins/cf-plugin-serverless
     build_arguments:
-      - SERVERLESS_VER=${{VERSION}}
-
+    - SERVERLESS_VER=${{VERSION}}
   dockerhub_push_master:
     type: push
     title: tag image with full and short SemVer versions
     candidate: ${{build}}
-    tags: 
-      - ${{VERSION}}
-      - ${{SHORT_VERSION}}
+    tags:
+    - latest
+    - 0.1.0
     when:
       branch:
         only:
-          - master
-
+        - master
   dockerhub_push_others:
     type: push
     title: tag image with branch SemVer version
     candidate: ${{build}}
-    tag: ${{VERSION}}-${{CF_BRANCH}}
+    tags:
+    - latest
+    - 0.1.0
     when:
       branch:
         ignore:
-          - master
+        - master
