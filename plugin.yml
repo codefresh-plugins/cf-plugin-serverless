@@ -8,7 +8,7 @@ categories:
 keywords:
 - serverless
 sources:
-- https://github.com/codfresh-plugins/cf-plugin-serverless
+- https://github.com/codefresh-plugins/cf-plugin-serverless
 maintainers:
 - name: Francisco Cocozza
   email: francisco@codefresh.io
