@@ -4,7 +4,7 @@ tag: 0.1.0
 version: 0.1.0
 description: Deploy a Serverless service (functions and resources)
 categories:
-- Featured
+- featured
 keywords:
 - serverless
 sources:
